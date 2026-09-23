@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AddRouteImport } from './routes/add'
+import { Route as EndingSoonRouteImport } from './routes/ending-soon'
+import { Route as RecentRouteImport } from './routes/recent'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as EndListIndexRouteImport } from './routes/end-list.index'
+import { Route as ThingSlugRouteImport } from './routes/thing.$slug'
+import { Route as EndListYearMonthRouteImport } from './routes/end-list.$year.$month'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AddRoute = AddRouteImport.update({
+  id: '/add',
+  path: '/add',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EndingSoonRoute = EndingSoonRouteImport.update({
+  id: '/ending-soon',
+  path: '/ending-soon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecentRoute = RecentRouteImport.update({
+  id: '/recent',
+  path: '/recent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EndListIndexRoute = EndListIndexRouteImport.update({
+  id: '/end-list/',
+  path: '/end-list/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThingSlugRoute = ThingSlugRouteImport.update({
+  id: '/thing/$slug',
+  path: '/thing/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EndListYearMonthRoute = EndListYearMonthRouteImport.update({
+  id: '/end-list/$year/$month',
+  path: '/end-list/$year/$month',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
+  '/ending-soon': typeof EndingSoonRoute
+  '/recent': typeof RecentRoute
+  '/search': typeof SearchRoute
+  '/thing/$slug': typeof ThingSlugRoute
+  '/end-list/': typeof EndListIndexRoute
+  '/end-list/$year/$month': typeof EndListYearMonthRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
+  '/ending-soon': typeof EndingSoonRoute
+  '/recent': typeof RecentRoute
+  '/search': typeof SearchRoute
+  '/thing/$slug': typeof ThingSlugRoute
+  '/end-list': typeof EndListIndexRoute
+  '/end-list/$year/$month': typeof EndListYearMonthRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
+  '/ending-soon': typeof EndingSoonRoute
+  '/recent': typeof RecentRoute
+  '/search': typeof SearchRoute
+  '/thing/$slug': typeof ThingSlugRoute
+  '/end-list/': typeof EndListIndexRoute
+  '/end-list/$year/$month': typeof EndListYearMonthRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/add'
+    | '/ending-soon'
+    | '/recent'
+    | '/search'
+    | '/thing/$slug'
+    | '/end-list/'
+    | '/end-list/$year/$month'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/add'
+    | '/ending-soon'
+    | '/recent'
+    | '/search'
+    | '/thing/$slug'
+    | '/end-list'
+    | '/end-list/$year/$month'
+  id:
+    | '__root__'
+    | '/'
+    | '/add'
+    | '/ending-soon'
+    | '/recent'
+    | '/search'
+    | '/thing/$slug'
+    | '/end-list/'
+    | '/end-list/$year/$month'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddRoute: typeof AddRoute
+  EndingSoonRoute: typeof EndingSoonRoute
+  RecentRoute: typeof RecentRoute
+  SearchRoute: typeof SearchRoute
+  ThingSlugRoute: typeof ThingSlugRoute
+  EndListIndexRoute: typeof EndListIndexRoute
+  EndListYearMonthRoute: typeof EndListYearMonthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/add': {
+      id: '/add'
+      path: '/add'
+      fullPath: '/add'
+      preLoaderRoute: typeof AddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ending-soon': {
+      id: '/ending-soon'
+      path: '/ending-soon'
+      fullPath: '/ending-soon'
+      preLoaderRoute: typeof EndingSoonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recent': {
+      id: '/recent'
+      path: '/recent'
+      fullPath: '/recent'
+      preLoaderRoute: typeof RecentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/end-list/': {
+      id: '/end-list/'
+      path: '/end-list'
+      fullPath: '/end-list/'
+      preLoaderRoute: typeof EndListIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/thing/$slug': {
+      id: '/thing/$slug'
+      path: '/thing/$slug'
+      fullPath: '/thing/$slug'
+      preLoaderRoute: typeof ThingSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/end-list/$year/$month': {
+      id: '/end-list/$year/$month'
+      path: '/end-list/$year/$month'
+      fullPath: '/end-list/$year/$month'
+      preLoaderRoute: typeof EndListYearMonthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddRoute: AddRoute,
+  EndingSoonRoute: EndingSoonRoute,
+  RecentRoute: RecentRoute,
+  SearchRoute: SearchRoute,
+  ThingSlugRoute: ThingSlugRoute,
+  EndListIndexRoute: EndListIndexRoute,
+  EndListYearMonthRoute: EndListYearMonthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
