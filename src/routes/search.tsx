@@ -3,7 +3,7 @@ import { search } from "@/lib/data";
 import { PageTitle, ResultRow } from "@/components/ui-bits";
 
 export const Route = createFileRoute("/search")({
-  validateSearch: (s: Record<string, unknown>): { q?: string } => ({ q: typeof s["q"] === "string" ? s["q"] : undefined }),
+  validateSearch: (s: Record<string, unknown>): { q?: string } => (typeof s["q"] === "string" ? { q: s["q"] } : {}),
   head: () => ({ meta: [
     { title: "Search the archive — Scruttin" },
     { name: "description", content: "Search discontinued products, closed companies, cancelled projects and more." },
