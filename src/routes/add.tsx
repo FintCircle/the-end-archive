@@ -5,8 +5,8 @@ import { PageTitle } from "@/components/ui-bits";
 
 export const Route = createFileRoute("/add")({
   validateSearch: (s: Record<string, unknown>): { correction?: string; story?: string } => ({
-    correction: typeof s["correction"] === "string" ? s["correction"] : undefined,
-    story: typeof s["story"] === "string" ? s["story"] : undefined,
+    ...(typeof s["correction"] === "string" ? { correction: s["correction"] } : {}),
+    ...(typeof s["story"] === "string" ? { story: s["story"] } : {}),
   }),
   head: () => ({ meta: [
     { title: "Contribute — Scruttin" },
