@@ -19,7 +19,7 @@ function EndListIndex() {
       <PageTitle title="The End List" sub="What disappeared, month by month." />
       <ul>
         {months.map((m) => {
-          const [y, mo] = m.split("-");
+          const y = m.slice(0, 4), mo = m.slice(5, 7);
           const n = things.filter((t) => t.end.startsWith(m)).length;
           return (
             <li key={m} className="border-b border-border">
