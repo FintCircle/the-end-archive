@@ -168,10 +168,21 @@ export const things: Thing[] = [
   },
 ];
 
+export const CONNECTIONS = [
+  { value: "Built it", label: "I built it" },
+  { value: "Worked there", label: "I worked there" },
+  { value: "Used it", label: "I used it" },
+  { value: "Invested in it", label: "I invested in it" },
+  { value: "Witnessed it", label: "I witnessed it" },
+  { value: "Other connection", label: "Other" },
+] as const;
+export type Connection = (typeof CONNECTIONS)[number]["value"];
+
 export interface Story {
   id: string;
   slug: string; // thing slug
-  relationship: string; // one of the RELATIONSHIPS on /add
+  num: number; // permanent public id: /stories/[slug]/[num]
+  relationship: Connection;
   title: string;
   body: string;
   author: string; // display name or "Anonymous"
@@ -180,37 +191,37 @@ export interface Story {
 
 export const stories: Story[] = [
   {
-    id: "st-pocket-1", slug: "pocket", relationship: "I used it",
+    id: "st-pocket-1", num: 8201, slug: "pocket", relationship: "Used it",
     title: "A decade of articles I never read, gone",
     author: "Marta K.", date: "2025-07-20",
     body: "I started saving to Read It Later in 2010, on a jailbroken iPod Touch. Over fifteen years I saved around 4,000 articles — a private library of things I meant to read. When Mozilla announced the shutdown I exported everything, but the export was just a CSV of links. The tags, the highlights, the reading streaks: none of that came out. I spent a weekend re-saving a few hundred links into Raindrop and gave up on the rest. What I miss most is the little dopamine hit of the save button. Nothing else made saving feel that good.",
   },
   {
-    id: "st-pocket-2", slug: "pocket", relationship: "I worked on it",
+    id: "st-pocket-2", num: 8214, slug: "pocket", relationship: "Worked there",
     title: "We always knew the recommendations were the product",
     author: "Anonymous (former Mozilla)", date: "2025-08-02",
     body: "Inside the company, Pocket's value was never the save button — it was the recommendation data feeding the Firefox new tab. Once that contract changed internally, the standalone app's days were numbered. The team still shipping Pocket features in 2024 knew they were maintaining something whose owner had moved on. I don't blame anyone; I blame the fact that a tool used by millions became a line item in a strategy deck.",
   },
   {
-    id: "st-stadia-1", slug: "google-stadia", relationship: "I used it",
+    id: "st-stadia-1", num: 8107, slug: "google-stadia", relationship: "Used it",
     title: "It actually worked, and that was the tragedy",
     author: "Devon R.", date: "2025-01-14",
     body: "I played Red Dead Redemption 2 on Stadia on a five-year-old laptop, over hotel wifi, and it just worked. That's the thing people who never tried it don't understand: the tech was genuinely good. What killed it was trust. Everyone I knew said the same thing — 'I'm not buying games on a Google platform, they'll kill it.' And then they did, and refunded us, which was almost worse, because it proved we'd been right all along.",
   },
   {
-    id: "st-vine-1", slug: "vine", relationship: "I created it",
+    id: "st-vine-1", num: 8392, slug: "vine", relationship: "Built it",
     title: "The six seconds were never the problem",
     author: "Anonymous (former Vine creator, ~1M followers)", date: "2026-02-11",
     body: "People blame the format, but the format was fine — TikTok proved that. Vine died because Twitter never let us earn anything. In 2015, twenty of the biggest creators went to a meeting at Vine's office and asked for monetization and basic product changes. Nothing came of it. Within a year most of us were posting on Instagram and YouTube instead. When the shutdown announcement came, nobody I knew was surprised. The surprise was that it took that long.",
   },
   {
-    id: "st-skype-1", slug: "skype", relationship: "I used it",
+    id: "st-skype-1", num: 8156, slug: "skype", relationship: "Used it",
     title: "Skype was how I talked to my grandmother",
     author: "Petra S.", date: "2025-05-06",
     body: "My grandmother in Poland learned one piece of software in her life, and it was Skype. For twelve years, every Sunday, the sound of that ringtone meant family. When Microsoft retired it I moved her to WhatsApp, and it took her months to stop saying 'call me on Skype.' The account migration to Teams technically worked, but Teams is an office. Skype was a kitchen table. That's the difference no migration tool can carry over.",
   },
   {
-    id: "st-humane-1", slug: "humane-ai-pin", relationship: "I used it",
+    id: "st-humane-1", num: 8133, slug: "humane-ai-pin", relationship: "Used it",
     title: "I paid $700 for a brick with a laser",
     author: "J. Okafor", date: "2025-03-04",
     body: "I bought the AI Pin at launch because the demo was beautiful and I wanted to believe. In practice: the projector was invisible in daylight, the battery ran hot against my chest, and every query took ten seconds. I wore it maybe nine times. When the HP deal was announced and they said the servers would shut down in ten days, I wasn't even angry anymore. It's in a drawer now. A $700 reminder that the demo is not the product.",
@@ -218,7 +229,20 @@ export const stories: Story[] = [
 ];
 
 export const getThing = (slug: string) => things.find((t) => t.slug === slug);
-export const getStories = (slug: string) => stories.filter((s) => s.slug === slug);
+export const getStories = (slug: string) => stories.filter((s) => s.slug === slug).sort((a, b) => b.date.localeCompare(a.date));
+export const getStory = (slug: string, num: string) => stories.find((s) => s.slug === slug && String(s.num) === num);
+export const allStories = [...stories].sort((a, b) => b.date.localeCompare(a.date));
+export const STORY_PREVIEW = 280;
+
+export function timeAgo(d: string, now = new Date()) {
+  const days = Math.floor((now.getTime() - new Date(d + "T00:00:00Z").getTime()) / 86400000);
+  if (days < 1) return "today";
+  if (days < 30) return `${days} day${days === 1 ? "" : "s"} ago`;
+  const m = Math.floor(days / 30);
+  if (m < 12) return `${m} month${m === 1 ? "" : "s"} ago`;
+  const y = Math.floor(days / 365);
+  return `${y} year${y === 1 ? "" : "s"} ago`;
+}
 export const year = (d: string) => d.slice(0, 4);
 export const byEndDesc = [...things].sort((a, b) => b.end.localeCompare(a.end));
 export const upcoming = things.filter((t) => t.status === "Shutting Down Soon");

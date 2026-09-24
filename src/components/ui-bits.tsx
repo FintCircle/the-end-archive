@@ -14,6 +14,7 @@ export function Header() {
           <Link to="/recent" activeProps={{ className: "underline" }}>Recently</Link>
           <Link to="/ending-soon" activeProps={{ className: "underline" }}>Ending Soon</Link>
           <Link to="/end-list" activeProps={{ className: "underline" }}>The End List</Link>
+          <Link to="/stories" activeProps={{ className: "underline" }}>Stories</Link>
         </nav>
         <form onSubmit={go} className="ml-auto flex-1 max-w-xs">
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" aria-label="Search"
