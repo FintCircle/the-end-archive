@@ -39,11 +39,11 @@ function Home() {
         <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
           Things disappear. Products are discontinued. Companies close. Projects get cancelled. Scruttin documents what happened.
         </p>
-        <form onSubmit={(e) => { e.preventDefault(); nav({ to: "/search", search: { q } }); }} className="mx-auto mt-10 flex max-w-2xl border-2 border-foreground bg-card">
+        <form onSubmit={(e) => { e.preventDefault(); nav({ to: "/search", search: { q } }); }} className="mx-auto mt-10 flex w-full max-w-2xl flex-col border-2 border-foreground bg-card md:flex-row">
           <input value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search the archive"
             placeholder="Search a product, company, app, service, project…"
-            className="flex-1 bg-transparent px-5 py-4 text-lg outline-none" />
-          <button className="bg-foreground px-6 font-mono text-sm uppercase tracking-wider text-background">Search</button>
+            className="min-w-0 flex-1 bg-transparent px-5 py-4 text-lg outline-none" />
+          <button className="w-full shrink-0 bg-foreground px-6 py-4 font-mono text-sm uppercase tracking-wider text-background md:w-auto md:py-0">Search</button>
         </form>
       </section>
       <Section title="Recently ended" items={byEndDesc.slice(0, 4)} to="/recent" />
