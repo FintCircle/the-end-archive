@@ -15,8 +15,10 @@ import { Route as EndingSoonRouteImport } from './routes/ending-soon'
 import { Route as RecentRouteImport } from './routes/recent'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as EndListIndexRouteImport } from './routes/end-list.index'
+import { Route as StoriesIndexRouteImport } from './routes/stories.index'
 import { Route as ThingSlugRouteImport } from './routes/thing.$slug'
 import { Route as EndListYearMonthRouteImport } from './routes/end-list.$year.$month'
+import { Route as StoriesSlugNumRouteImport } from './routes/stories.$slug.$num'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -48,6 +50,11 @@ const EndListIndexRoute = EndListIndexRouteImport.update({
   path: '/end-list/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StoriesIndexRoute = StoriesIndexRouteImport.update({
+  id: '/stories/',
+  path: '/stories/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThingSlugRoute = ThingSlugRouteImport.update({
   id: '/thing/$slug',
   path: '/thing/$slug',
@@ -56,6 +63,11 @@ const ThingSlugRoute = ThingSlugRouteImport.update({
 const EndListYearMonthRoute = EndListYearMonthRouteImport.update({
   id: '/end-list/$year/$month',
   path: '/end-list/$year/$month',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoriesSlugNumRoute = StoriesSlugNumRouteImport.update({
+  id: '/stories/$slug/$num',
+  path: '/stories/$slug/$num',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -67,7 +79,9 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/thing/$slug': typeof ThingSlugRoute
   '/end-list/': typeof EndListIndexRoute
+  '/stories/': typeof StoriesIndexRoute
   '/end-list/$year/$month': typeof EndListYearMonthRoute
+  '/stories/$slug/$num': typeof StoriesSlugNumRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -77,7 +91,9 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/thing/$slug': typeof ThingSlugRoute
   '/end-list': typeof EndListIndexRoute
+  '/stories': typeof StoriesIndexRoute
   '/end-list/$year/$month': typeof EndListYearMonthRoute
+  '/stories/$slug/$num': typeof StoriesSlugNumRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -88,7 +104,9 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/thing/$slug': typeof ThingSlugRoute
   '/end-list/': typeof EndListIndexRoute
+  '/stories/': typeof StoriesIndexRoute
   '/end-list/$year/$month': typeof EndListYearMonthRoute
+  '/stories/$slug/$num': typeof StoriesSlugNumRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -100,7 +118,9 @@ export interface FileRouteTypes {
     | '/search'
     | '/thing/$slug'
     | '/end-list/'
+    | '/stories/'
     | '/end-list/$year/$month'
+    | '/stories/$slug/$num'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -110,7 +130,9 @@ export interface FileRouteTypes {
     | '/search'
     | '/thing/$slug'
     | '/end-list'
+    | '/stories'
     | '/end-list/$year/$month'
+    | '/stories/$slug/$num'
   id:
     | '__root__'
     | '/'
@@ -120,7 +142,9 @@ export interface FileRouteTypes {
     | '/search'
     | '/thing/$slug'
     | '/end-list/'
+    | '/stories/'
     | '/end-list/$year/$month'
+    | '/stories/$slug/$num'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -131,7 +155,9 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   ThingSlugRoute: typeof ThingSlugRoute
   EndListIndexRoute: typeof EndListIndexRoute
+  StoriesIndexRoute: typeof StoriesIndexRoute
   EndListYearMonthRoute: typeof EndListYearMonthRoute
+  StoriesSlugNumRoute: typeof StoriesSlugNumRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -178,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EndListIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stories/': {
+      id: '/stories/'
+      path: '/stories'
+      fullPath: '/stories/'
+      preLoaderRoute: typeof StoriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/thing/$slug': {
       id: '/thing/$slug'
       path: '/thing/$slug'
@@ -192,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EndListYearMonthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stories/$slug/$num': {
+      id: '/stories/$slug/$num'
+      path: '/stories/$slug/$num'
+      fullPath: '/stories/$slug/$num'
+      preLoaderRoute: typeof StoriesSlugNumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -203,7 +243,9 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   ThingSlugRoute: ThingSlugRoute,
   EndListIndexRoute: EndListIndexRoute,
+  StoriesIndexRoute: StoriesIndexRoute,
   EndListYearMonthRoute: EndListYearMonthRoute,
+  StoriesSlugNumRoute: StoriesSlugNumRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

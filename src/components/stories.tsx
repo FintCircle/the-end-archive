@@ -126,7 +126,6 @@ export function WereYouThere({ slug, thingName, list }: { slug: string; thingNam
         {list.length ? list.map((s) => <StoryEntry key={s.id} s={s} />) : <p className="italic text-muted-foreground">No one has shared a story about {thingName} yet.</p>}
       </div>
       {list.length > 0 && <p className="mt-8 font-mono text-[11px] text-muted-foreground">Personal accounts. Connections are self-declared and not verified by Scruttin. <Link to="/stories" className="underline">All stories →</Link></p>}
-      <span className="hidden">{slug}</span>
     </section>
   );
 }
