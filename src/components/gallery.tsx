@@ -91,16 +91,16 @@ export function SubjectGallery({
                   className="min-w-0 flex-1 touch-pan-y text-center"
                   onTouchStart={onTouchStart}
                 >
-                  <div className="flex min-h-[42vh] items-center justify-center md:min-h-[56vh]">
+                  <div className="flex min-h-[52vh] items-center justify-center px-1 md:min-h-[56vh] md:px-0">
                     <img
                       src={current.src}
                       alt={current.caption || `${subjectName} archive image ${selected + 1}`}
-                      className="max-h-[58vh] w-auto max-w-full object-contain"
+                      className="max-h-[64vh] w-auto max-w-full object-contain"
                     />
                   </div>
-                  <figcaption className="mx-auto mt-5 max-w-2xl border-t border-background/20 pt-4 text-left">
-                    {current.caption && <p className="font-display text-2xl leading-tight">{current.caption}</p>}
-                    <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-background/60">
+                  <figcaption className="mx-auto mt-4 max-w-2xl border-t border-background/20 pt-3 text-left md:mt-5 md:pt-4">
+                    {current.caption && <p className="font-display text-xl leading-tight md:text-2xl">{current.caption}</p>}
+                    <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-background/60 md:text-[11px]">
                       {current.date ? `${current.date} · ` : ""}
                       {current.source || "Source not recorded"} · {selected + 1} / {gallery.length}
                     </p>
@@ -114,30 +114,6 @@ export function SubjectGallery({
                 >
                   <ArrowRight aria-hidden="true" />
                 </button>
-              </div>
-            </div>
-
-            <div className="mt-7 border-t border-background/20 pt-4">
-              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-background/50">
-                Browse images
-              </p>
-              <div className="flex gap-2 overflow-x-auto pb-1">
-                {gallery.map((image, index) => (
-                  <button
-                    type="button"
-                    key={image.id}
-                    onClick={() => setSelected(index)}
-                    aria-label={`Show image ${index + 1}${image.caption ? `: ${image.caption}` : ""}`}
-                    aria-current={index === selected ? "true" : undefined}
-                    className={`size-16 shrink-0 overflow-hidden border transition md:size-20 ${index === selected ? "border-accent" : "border-background/20 opacity-65 hover:opacity-100"}`}
-                  >
-                    <img
-                      src={image.src}
-                      alt=""
-                      className="size-full object-cover"
-                    />
-                  </button>
-                ))}
               </div>
             </div>
           </div>
