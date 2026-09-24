@@ -120,6 +120,12 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Header />
       <Outlet />
+      <footer className="mx-auto mt-12 flex max-w-6xl flex-wrap gap-x-6 gap-y-3 border-t border-foreground px-4 py-8 font-mono text-xs uppercase tracking-wider">
+        <Link to="/about">About</Link>
+        <Link to="/terms">Terms</Link>
+        <Link to="/privacy">Privacy</Link>
+        <Link to="/contact">Contact</Link>
+      </footer>
     </QueryClientProvider>
   );
 }

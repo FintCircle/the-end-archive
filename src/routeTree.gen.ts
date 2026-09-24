@@ -10,11 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AddRouteImport } from './routes/add'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EndingSoonRouteImport } from './routes/ending-soon'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RecentRouteImport } from './routes/recent'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as EndListIndexRouteImport } from './routes/end-list.index'
 import { Route as StoriesIndexRouteImport } from './routes/stories.index'
 import { Route as ThingSlugRouteImport } from './routes/thing.$slug'
@@ -24,6 +28,11 @@ import { Route as StoriesSlugNumRouteImport } from './routes/stories.$slug.$num'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccountRoute = AccountRouteImport.update({
@@ -36,9 +45,19 @@ const AddRoute = AddRouteImport.update({
   path: '/add',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EndingSoonRoute = EndingSoonRouteImport.update({
   id: '/ending-soon',
   path: '/ending-soon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RecentRoute = RecentRouteImport.update({
@@ -49,6 +68,11 @@ const RecentRoute = RecentRouteImport.update({
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EndListIndexRoute = EndListIndexRouteImport.update({
@@ -79,11 +103,15 @@ const StoriesSlugNumRoute = StoriesSlugNumRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/add': typeof AddRoute
+  '/contact': typeof ContactRoute
   '/ending-soon': typeof EndingSoonRoute
+  '/privacy': typeof PrivacyRoute
   '/recent': typeof RecentRoute
   '/search': typeof SearchRoute
+  '/terms': typeof TermsRoute
   '/thing/$slug': typeof ThingSlugRoute
   '/end-list/': typeof EndListIndexRoute
   '/stories/': typeof StoriesIndexRoute
@@ -92,11 +120,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/add': typeof AddRoute
+  '/contact': typeof ContactRoute
   '/ending-soon': typeof EndingSoonRoute
+  '/privacy': typeof PrivacyRoute
   '/recent': typeof RecentRoute
   '/search': typeof SearchRoute
+  '/terms': typeof TermsRoute
   '/thing/$slug': typeof ThingSlugRoute
   '/end-list': typeof EndListIndexRoute
   '/stories': typeof StoriesIndexRoute
@@ -106,11 +138,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/add': typeof AddRoute
+  '/contact': typeof ContactRoute
   '/ending-soon': typeof EndingSoonRoute
+  '/privacy': typeof PrivacyRoute
   '/recent': typeof RecentRoute
   '/search': typeof SearchRoute
+  '/terms': typeof TermsRoute
   '/thing/$slug': typeof ThingSlugRoute
   '/end-list/': typeof EndListIndexRoute
   '/stories/': typeof StoriesIndexRoute
@@ -121,11 +157,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/account'
     | '/add'
+    | '/contact'
     | '/ending-soon'
+    | '/privacy'
     | '/recent'
     | '/search'
+    | '/terms'
     | '/thing/$slug'
     | '/end-list/'
     | '/stories/'
@@ -134,11 +174,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/account'
     | '/add'
+    | '/contact'
     | '/ending-soon'
+    | '/privacy'
     | '/recent'
     | '/search'
+    | '/terms'
     | '/thing/$slug'
     | '/end-list'
     | '/stories'
@@ -147,11 +191,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/account'
     | '/add'
+    | '/contact'
     | '/ending-soon'
+    | '/privacy'
     | '/recent'
     | '/search'
+    | '/terms'
     | '/thing/$slug'
     | '/end-list/'
     | '/stories/'
@@ -161,11 +209,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AccountRoute: typeof AccountRoute
   AddRoute: typeof AddRoute
+  ContactRoute: typeof ContactRoute
   EndingSoonRoute: typeof EndingSoonRoute
+  PrivacyRoute: typeof PrivacyRoute
   RecentRoute: typeof RecentRoute
   SearchRoute: typeof SearchRoute
+  TermsRoute: typeof TermsRoute
   ThingSlugRoute: typeof ThingSlugRoute
   EndListIndexRoute: typeof EndListIndexRoute
   StoriesIndexRoute: typeof StoriesIndexRoute
@@ -182,6 +234,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/account': {
       id: '/account'
       path: '/account'
@@ -196,11 +255,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AddRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ending-soon': {
       id: '/ending-soon'
       path: '/ending-soon'
       fullPath: '/ending-soon'
       preLoaderRoute: typeof EndingSoonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/recent': {
@@ -215,6 +288,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/end-list/': {
@@ -257,11 +337,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AccountRoute: AccountRoute,
   AddRoute: AddRoute,
+  ContactRoute: ContactRoute,
   EndingSoonRoute: EndingSoonRoute,
+  PrivacyRoute: PrivacyRoute,
   RecentRoute: RecentRoute,
   SearchRoute: SearchRoute,
+  TermsRoute: TermsRoute,
   ThingSlugRoute: ThingSlugRoute,
   EndListIndexRoute: EndListIndexRoute,
   StoriesIndexRoute: StoriesIndexRoute,
