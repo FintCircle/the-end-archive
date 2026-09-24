@@ -59,10 +59,10 @@ function StoryPage() {
           ♡ Appreciate
         </Link>
         <Link to="/account" className="hover:text-foreground">
-          {copied ? "Link copied" : "Share"}
+          Share
         </Link>
         <Link to="/account" className="hover:text-foreground">
-          {reported ? "Reported — thanks" : "Report"}
+          Report
         </Link>
       </div>
       <Link
