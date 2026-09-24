@@ -62,43 +62,35 @@ export function SubjectGallery({
           aria-label={`${subjectName} gallery`}
           className="fixed inset-0 z-50 overflow-y-auto bg-foreground/95 text-background"
         >
-          <div className="mx-auto min-h-full max-w-6xl px-4 py-5 md:px-8 md:py-8">
-            <div className="flex items-center justify-between gap-4">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-background/60">
+          <div className="mx-auto min-h-full max-w-6xl px-0 py-2 md:px-8 md:py-8">
+            <div className="flex items-center justify-between gap-4 px-3 md:px-0">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-background/60 md:text-xs">
                 {subjectName} · Gallery
               </p>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close gallery"
-                className="flex size-10 items-center justify-center border border-background/30 hover:border-background"
+                className="flex size-9 items-center justify-center border border-background/30 hover:border-background md:size-10"
               >
                 <X aria-hidden="true" />
               </button>
             </div>
 
-            <div className="relative mt-8 border-t border-background/20 pt-6">
-              <div className="flex items-center justify-between gap-3 md:gap-6">
-                <button
-                  type="button"
-                  onClick={() => move(-1)}
-                  aria-label="Previous image"
-                  className="flex size-10 shrink-0 items-center justify-center border border-background/30 hover:border-background"
-                >
-                  <ArrowLeft aria-hidden="true" />
-                </button>
+            <div className="relative mt-2 border-t border-background/20 pt-2 md:mt-8 md:pt-6">
+              <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
                 <figure
-                  className="min-w-0 flex-1 touch-pan-y text-center"
+                  className="order-1 min-w-0 flex-1 touch-pan-y text-center"
                   onTouchStart={onTouchStart}
                 >
-                  <div className="flex min-h-[52vh] items-center justify-center px-1 md:min-h-[56vh] md:px-0">
+                  <div className="flex min-h-[46vh] w-full items-center justify-center md:min-h-[56vh]">
                     <img
                       src={current.src}
                       alt={current.caption || `${subjectName} archive image ${selected + 1}`}
-                      className="max-h-[64vh] w-auto max-w-full object-contain"
+                      className="max-h-[57vh] w-full object-contain md:max-h-[64vh] md:w-auto"
                     />
                   </div>
-                  <figcaption className="mx-auto mt-4 max-w-2xl border-t border-background/20 pt-3 text-left md:mt-5 md:pt-4">
+                  <figcaption className="mx-0 mt-2 border-t border-background/20 px-3 pt-3 text-left md:mx-auto md:mt-5 md:max-w-2xl md:px-0 md:pt-4">
                     {current.caption && <p className="font-display text-xl leading-tight md:text-2xl">{current.caption}</p>}
                     <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-background/60 md:text-[11px]">
                       {current.date ? `${current.date} · ` : ""}
@@ -106,14 +98,24 @@ export function SubjectGallery({
                     </p>
                   </figcaption>
                 </figure>
-                <button
-                  type="button"
-                  onClick={() => move(1)}
-                  aria-label="Next image"
-                  className="flex size-10 shrink-0 items-center justify-center border border-background/30 hover:border-background"
-                >
-                  <ArrowRight aria-hidden="true" />
-                </button>
+                <div className="order-2 flex justify-between gap-3 px-3 md:contents md:px-0">
+                  <button
+                    type="button"
+                    onClick={() => move(-1)}
+                    aria-label="Previous image"
+                    className="flex h-10 flex-1 items-center justify-center border border-background/30 hover:border-background md:size-10 md:flex-none"
+                  >
+                    <ArrowLeft aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => move(1)}
+                    aria-label="Next image"
+                    className="flex h-10 flex-1 items-center justify-center border border-background/30 hover:border-background md:size-10 md:flex-none"
+                  >
+                    <ArrowRight aria-hidden="true" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
