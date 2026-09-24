@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { formatDate, getThing, year } from "@/lib/data";
+import { formatDate, getStories, getThing, year } from "@/lib/data";
 import { Lifeline, StatusBadge } from "@/components/ui-bits";
 
 export const Route = createFileRoute("/thing/$slug")({
@@ -102,7 +102,23 @@ function ThingPage() {
       <section className="mt-16 border-2 border-foreground p-8">
         <h2 className="font-display text-3xl font-bold">Were you there?</h2>
         <p className="mt-2 text-muted-foreground">Did you build it, work there, use it, invest in it, or witness what happened?</p>
-        <p className="mt-4 text-sm italic text-muted-foreground">No first-hand stories yet.</p>
+        {(() => {
+          const list = getStories(t.slug);
+          return list.length ? (
+            <div className="mt-8 space-y-8">
+              {list.map((s) => (
+                <article key={s.id} className="border-t border-foreground/30 pt-6">
+                  <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">{s.relationship} · {s.author} · {formatDate(s.date)}</p>
+                  <h3 className="mt-2 font-display text-2xl font-semibold">{s.title}</h3>
+                  <p className="mt-3 leading-relaxed">{s.body}</p>
+                </article>
+              ))}
+              <p className="font-mono text-xs text-muted-foreground">First-hand stories are personal accounts. Relationships are not verified.</p>
+            </div>
+          ) : (
+            <p className="mt-4 text-sm italic text-muted-foreground">No first-hand stories yet.</p>
+          );
+        })()}
         <Link to="/add" search={{ story: t.slug }} className="mt-6 inline-block bg-foreground px-5 py-3 font-mono text-sm uppercase text-background">Tell your story</Link>
       </section>
     </main>
