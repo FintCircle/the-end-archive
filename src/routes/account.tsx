@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/account")({
   head: () => ({
@@ -24,6 +25,7 @@ function Account() {
         </p>
         <button
           type="button"
+          onClick={() => supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: window.location.origin } })}
           className="mt-8 flex w-full items-center justify-center gap-3 border border-foreground bg-foreground px-5 py-3 font-mono text-sm uppercase text-background transition-opacity hover:opacity-85"
         >
           <span aria-hidden className="text-base font-semibold">

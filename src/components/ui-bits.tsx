@@ -41,6 +41,9 @@ export function Header() {
         <Link to="/account" className="font-mono text-xs uppercase tracking-wider">
           Account
         </Link>
+        <Link to="/admin" className="font-mono text-xs uppercase tracking-wider">
+          Admin
+        </Link>
       </div>
     </header>
   );

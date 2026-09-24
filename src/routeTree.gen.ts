@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AddRouteImport } from './routes/add'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EndingSoonRouteImport } from './routes/ending-soon'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -43,6 +44,11 @@ const AccountRoute = AccountRouteImport.update({
 const AddRoute = AddRouteImport.update({
   id: '/add',
   path: '/add',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/add': typeof AddRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/ending-soon': typeof EndingSoonRoute
   '/privacy': typeof PrivacyRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/add': typeof AddRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/ending-soon': typeof EndingSoonRoute
   '/privacy': typeof PrivacyRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/add': typeof AddRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/ending-soon': typeof EndingSoonRoute
   '/privacy': typeof PrivacyRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/add'
+    | '/admin'
     | '/contact'
     | '/ending-soon'
     | '/privacy'
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/add'
+    | '/admin'
     | '/contact'
     | '/ending-soon'
     | '/privacy'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/add'
+    | '/admin'
     | '/contact'
     | '/ending-soon'
     | '/privacy'
@@ -212,6 +224,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AccountRoute: typeof AccountRoute
   AddRoute: typeof AddRoute
+  AdminRoute: typeof AdminRoute
   ContactRoute: typeof ContactRoute
   EndingSoonRoute: typeof EndingSoonRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -253,6 +266,13 @@ declare module '@tanstack/react-router' {
       path: '/add'
       fullPath: '/add'
       preLoaderRoute: typeof AddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -340,6 +360,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AccountRoute: AccountRoute,
   AddRoute: AddRoute,
+  AdminRoute: AdminRoute,
   ContactRoute: ContactRoute,
   EndingSoonRoute: EndingSoonRoute,
   PrivacyRoute: PrivacyRoute,
