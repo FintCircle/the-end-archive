@@ -1,0 +1,8 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PageTitle } from "@/components/ui-bits";
+
+export const Route = createFileRoute("/terms")({ component: Terms });
+
+function Terms() {
+  return <main className="mx-auto max-w-3xl px-4 pb-24"><PageTitle title="Terms of use" sub="A few straightforward rules for using Scruttin." /><div className="mt-10 space-y-8 text-lg leading-relaxed text-muted-foreground"><section><h2 className="font-display text-3xl font-semibold text-foreground">Use the archive thoughtfully</h2><p className="mt-3">Scruttin is a place to document what happened to products, projects, businesses and communities. Use it to read, research and contribute in good faith.</p></section><section><h2 className="font-display text-3xl font-semibold text-foreground">Contributions</h2><p className="mt-3">You are responsible for the contributions you submit. Do not submit content that is unlawful, abusive, knowingly false, invasive of someone&apos;s privacy, or that infringes another person&apos;s rights. We may review, edit, remove or decline contributions.</p></section><section><h2 className="font-display text-3xl font-semibold text-foreground">Accuracy and uncertainty</h2><p className="mt-3">The archive contains facts, memories and theories. We aim to make those distinctions clear, but we cannot guarantee that every contribution is complete or accurate. Please verify important information independently.</p></section><section><h2 className="font-display text-3xl font-semibold text-foreground">Changes</h2><p className="mt-3">We may update these terms as Scruttin develops. Continued use of the site after changes means you accept the updated terms.</p></section></div></main>;
+}
