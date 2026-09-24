@@ -77,25 +77,8 @@ export function SubjectGallery({
               </button>
             </div>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {gallery.map((image, index) => (
-                <button
-                  type="button"
-                  key={image.id}
-                  onClick={() => setSelected(index)}
-                  className={`overflow-hidden border text-left ${index === selected ? "border-accent" : "border-background/15"}`}
-                >
-                  <img
-                    src={image.src}
-                    alt={image.caption || `${subjectName} archive image ${index + 1}`}
-                    className="aspect-[4/3] w-full object-cover transition hover:scale-[1.02]"
-                  />
-                </button>
-              ))}
-            </div>
-
             <div className="relative mt-8 border-t border-background/20 pt-6">
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center justify-between gap-3 md:gap-6">
                 <button
                   type="button"
                   onClick={() => move(-1)}
@@ -108,13 +91,15 @@ export function SubjectGallery({
                   className="min-w-0 flex-1 touch-pan-y text-center"
                   onTouchStart={onTouchStart}
                 >
-                  <img
-                    src={current.src}
-                    alt={current.caption || `${subjectName} archive image ${selected + 1}`}
-                    className="mx-auto max-h-[52vh] w-auto max-w-full object-contain"
-                  />
-                  <figcaption className="mx-auto mt-5 max-w-2xl text-left">
-                    {current.caption && <p className="font-display text-2xl">{current.caption}</p>}
+                  <div className="flex min-h-[42vh] items-center justify-center md:min-h-[56vh]">
+                    <img
+                      src={current.src}
+                      alt={current.caption || `${subjectName} archive image ${selected + 1}`}
+                      className="max-h-[58vh] w-auto max-w-full object-contain"
+                    />
+                  </div>
+                  <figcaption className="mx-auto mt-5 max-w-2xl border-t border-background/20 pt-4 text-left">
+                    {current.caption && <p className="font-display text-2xl leading-tight">{current.caption}</p>}
                     <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-background/60">
                       {current.date ? `${current.date} · ` : ""}
                       {current.source || "Source not recorded"} · {selected + 1} / {gallery.length}
@@ -129,6 +114,30 @@ export function SubjectGallery({
                 >
                   <ArrowRight aria-hidden="true" />
                 </button>
+              </div>
+            </div>
+
+            <div className="mt-7 border-t border-background/20 pt-4">
+              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-background/50">
+                Browse images
+              </p>
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {gallery.map((image, index) => (
+                  <button
+                    type="button"
+                    key={image.id}
+                    onClick={() => setSelected(index)}
+                    aria-label={`Show image ${index + 1}${image.caption ? `: ${image.caption}` : ""}`}
+                    aria-current={index === selected ? "true" : undefined}
+                    className={`size-16 shrink-0 overflow-hidden border transition md:size-20 ${index === selected ? "border-accent" : "border-background/20 opacity-65 hover:opacity-100"}`}
+                  >
+                    <img
+                      src={image.src}
+                      alt=""
+                      className="size-full object-cover"
+                    />
+                  </button>
+                ))}
               </div>
             </div>
           </div>
