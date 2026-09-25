@@ -7,7 +7,7 @@ export function SubjectGallery({
   images,
 }: {
   subjectName: string;
-  images?: GalleryImage[];
+  images?: GalleryImage[] | undefined;
 }) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(0);
@@ -85,16 +85,16 @@ export function SubjectGallery({
                 >
                   <div className="flex min-h-[46vh] w-full items-center justify-center md:min-h-[56vh]">
                     <img
-                      src={current.src}
-                      alt={current.caption || `${subjectName} archive image ${selected + 1}`}
+                      src={current!.src}
+                      alt={current!.caption || `${subjectName} archive image ${selected + 1}`}
                       className="max-h-[57vh] w-full object-contain md:max-h-[64vh] md:w-auto"
                     />
                   </div>
                   <figcaption className="mx-0 mt-2 border-t border-background/20 px-3 pt-3 text-left md:mx-auto md:mt-5 md:max-w-2xl md:px-0 md:pt-4">
-                    {current.caption && <p className="font-display text-xl leading-tight md:text-2xl">{current.caption}</p>}
+                    {current!.caption && <p className="font-display text-xl leading-tight md:text-2xl">{current!.caption}</p>}
                     <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-background/60 md:text-[11px]">
-                      {current.date ? `${current.date} · ` : ""}
-                      {current.source || "Source not recorded"} · {selected + 1} / {gallery.length}
+                      {current!.date ? `${current!.date} · ` : ""}
+                      {current!.source || "Source not recorded"} · {selected + 1} / {gallery.length}
                     </p>
                   </figcaption>
                 </figure>
@@ -130,14 +130,16 @@ export function GalleryAdmin({
   images,
 }: {
   subjectName: string;
-  images?: GalleryImage[];
+  images?: GalleryImage[] | undefined;
 }) {
   const [items, setItems] = useState(images ?? []);
   const move = (index: number, direction: number) => {
     const next = [...items];
     const target = index + direction;
     if (target < 0 || target >= next.length) return;
-    [next[index], next[target]] = [next[target], next[index]];
+    const a = next[index]!, b = next[target]!;
+    next[index] = b;
+    next[target] = a;
     setItems(next);
   };
   return (
