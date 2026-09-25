@@ -2,7 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { isAdmin, requireUser, supabase } from "@/lib/supabase";
 
-export const Route = createFileRoute("/admin")({ component: Admin });
+export const Route = createFileRoute("/admin")({
+  head: () => ({ meta: [{ title: "Admin — Scruttin" }, { name: "description", content: "Scruttin moderation workspace." }, { name: "robots", content: "noindex" }] }),
+  component: Admin,
+});
 
 type Queue = { id: string; title?: string; name?: string; status: string; created_at: string; body?: string; message?: string };
 
@@ -20,16 +23,16 @@ function Admin() {
     if (!admin) return;
     if (tab === "archive") {
       const { data } = await supabase.from("archive_items").select("id,name,slug,status,organization,created_at").order("created_at", { ascending: false });
-      setItems(data ?? []);
+      setItems((data ?? []) as Queue[]);
     } else if (tab === "stories") {
       const { data } = await supabase.from("community_stories").select("id,title,status,body,created_at").eq("status", "pending").order("created_at", { ascending: false });
-      setItems(data ?? []);
+      setItems((data ?? []) as Queue[]);
     } else if (tab === "corrections") {
       const { data } = await supabase.from("corrections").select("id,message,status,created_at").eq("status", "open").order("created_at", { ascending: false });
-      setItems(data ?? []);
+      setItems((data ?? []) as Queue[]);
     } else {
       const { data } = await supabase.from("reports").select("id,reason,status,created_at").eq("status", "open").order("created_at", { ascending: false });
-      setItems(data ?? []);
+      setItems((data ?? []) as Queue[]);
     }
   }
 
@@ -47,7 +50,7 @@ function Admin() {
   async function moderate(id: string, table: string, status: string) {
     const user = await requireUser();
     if (!user) return;
-    await supabase.from(table).update({ status, reviewed_by: user.id, reviewed_at: new Date().toISOString() }).eq("id", id);
+    await supabase.from(table as "reports").update({ status, reviewed_by: user.id, reviewed_at: new Date().toISOString() }).eq("id", id);
     await load();
   }
 

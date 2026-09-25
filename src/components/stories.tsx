@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/lib/use-auth";
 import { CONNECTIONS, STORY_PREVIEW, getThing, timeAgo, type Story } from "@/lib/data";
 
 function Avatar({ name }: { name: string }) {
@@ -115,8 +117,9 @@ export function StoryEntry({ s, showSubject }: { s: Story; showSubject?: boolean
   );
 }
 
-export function StoryComposer({ thingName, onClose }: { thingName: string; onClose: () => void }) {
+export function StoryComposer({ slug, thingName, onClose }: { slug: string; thingName: string; onClose: () => void }) {
   const [conn, setConn] = useState<string>("");
+  const [err, setErr] = useState("");
   const [body, setBody] = useState("");
   const [done, setDone] = useState(false);
   if (done)
@@ -134,9 +137,14 @@ export function StoryComposer({ thingName, onClose }: { thingName: string; onClo
   return (
     <form
       className="mt-6 border-t border-foreground/20 pt-6"
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        if (conn && body.trim()) setDone(true);
+        if (!conn || !body.trim()) return;
+        const { data } = await supabase.auth.getUser();
+        if (!data.user) return setErr("Please sign in first.");
+        const { error } = await supabase.from("community_stories").insert({ thing_slug: slug, relationship: conn, body: body.trim(), user_id: data.user.id });
+        if (error) setErr("Could not save your story. Please try again.");
+        else setDone(true);
       }}
     >
       <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
@@ -183,6 +191,7 @@ export function StoryComposer({ thingName, onClose }: { thingName: string; onClo
           Cancel
         </button>
       </div>
+      {err && <p className="mt-3 font-mono text-xs">{err}</p>}
       <p className="mt-3 font-mono text-[11px] text-muted-foreground">
         Your connection is shown as self-declared. Stories are reviewed before appearing.
       </p>
@@ -200,6 +209,7 @@ export function WereYouThere({
   list: Story[];
 }) {
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
   return (
     <section className="mt-16 bg-muted/40 p-6 md:p-10">
       <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
@@ -209,7 +219,16 @@ export function WereYouThere({
       <p className="mt-2 text-lg text-muted-foreground">
         Did you build it, work there, use it, invest in it, or witness what happened?
       </p>
-      {!open && (
+      {!open && user && (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="mt-6 inline-flex bg-foreground px-5 py-3 font-mono text-sm uppercase text-background"
+        >
+          Share your story
+        </button>
+      )}
+      {!open && !user && (
         <Link
           to="/account"
           className="mt-6 inline-flex bg-foreground px-5 py-3 font-mono text-sm uppercase text-background"
@@ -217,7 +236,7 @@ export function WereYouThere({
           Share your story
         </Link>
       )}
-      {open && <StoryComposer thingName={thingName} onClose={() => setOpen(false)} />}
+      {open && <StoryComposer slug={slug} thingName={thingName} onClose={() => setOpen(false)} />}
       <div className="mt-10 space-y-8">
         {list.length ? (
           list.map((s) => <StoryEntry key={s.id} s={s} />)
