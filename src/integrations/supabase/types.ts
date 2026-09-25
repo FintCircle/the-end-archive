@@ -14,16 +14,237 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      archive_items: {
+        Row: {
+          category: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ended_on: string | null
+          id: string
+          name: string
+          organization: string | null
+          slug: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ended_on?: string | null
+          id?: string
+          name: string
+          organization?: string | null
+          slug: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ended_on?: string | null
+          id?: string
+          name?: string
+          organization?: string | null
+          slug?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      community_stories: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          relationship: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          thing_slug: string
+          title: string | null
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          relationship: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          thing_slug: string
+          title?: string | null
+          user_id?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          relationship?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          thing_slug?: string
+          title?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      corrections: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          source_url: string | null
+          status: string
+          thing_slug: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source_url?: string | null
+          status?: string
+          thing_slug?: string | null
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source_url?: string | null
+          status?: string
+          thing_slug?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+          username: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id: string
+          updated_at?: string
+          username?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          username?: string | null
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          created_at: string
+          id: string
+          reason: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          target_id: string
+          target_type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          reason: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          target_id: string
+          target_type: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          reason?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          target_id?: string
+          target_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      saves: {
+        Row: {
+          created_at: string
+          id: string
+          thing_slug: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          thing_slug: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          thing_slug?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +371,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
